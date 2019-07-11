@@ -11,7 +11,7 @@ k = np.zeros(n)
 k[0] = 1
 
 for t in np.arange(1, n):
-    p = k[0:t] / (2 * t - 1)
+    p = np.ones(t) / t
     index = np.random.choice(t, 1, p=p)
 
     k[index] += 1
@@ -24,7 +24,7 @@ hist, _ = np.histogram(k, np.append(bins, max(bins)+1))
 
 # theoretical degree distribution
 k_values = np.arange(np.max(k)) + 1
-P_cum = np.power(k_values, -2)
+P_cum = np.exp(1 - k_values)
 
 P = -np.diff(np.append(P_cum, 0))
 freq = P * n
@@ -34,15 +34,15 @@ freq[freq < 1] = 0  # cut off
 fig, ax = plt.subplots()
 
 plt.autoscale(enable=True, tight=True)
-plt.loglog(bins, hist, '.', label='synthetic')
-plt.loglog(k_values, freq, 'g', label='theoretical')
+plt.semilogy(bins, hist, '.', label='synthetic')
+plt.semilogy(k_values, freq, 'g', label='theoretical')
 plt.xlabel(r'Degree $k$')
 plt.ylabel('Frequency')
 
 ax.legend(loc=1, numpoints=2)
 
-plt.savefig('degr-dist-pa.eps', format='eps')
-plt.savefig('degr-dist-pa.png', format='png')
+plt.savefig('degr-dist-unif.eps', format='eps')
+plt.savefig('degr-dist-unif.png', format='png')
 
 # cumulative degree distribution
 hist = np.cumsum(hist[::-1])[::-1]
@@ -58,14 +58,14 @@ plt.clf()
 fig, ax = plt.subplots()
 
 plt.autoscale(enable=True, tight=True)
-plt.loglog(bins, hist, label='synthetic')
-plt.loglog(k_values, P_cum, 'g', label='theoretical')
+plt.semilogy(bins, hist, label='synthetic')
+plt.semilogy(k_values, P_cum, 'g', label='theoretical')
 #plt.loglog(k_values, P, 'g', drawstyle='steps-post', label='theo. discr.')
 plt.xlabel(r'Degree $k$')
 plt.ylabel(r'$P(K \geq k)$')
 
 ax.legend(loc=1, numpoints=2)
 
-plt.savefig('cum-degr-dist-pa.eps', format='eps')
-plt.savefig('cum-degr-dist-pa.png', format='png')
+plt.savefig('cum-degr-dist-unif.eps', format='eps')
+plt.savefig('cum-degr-dist-unif.png', format='png')
 
