@@ -31,11 +31,15 @@ freq = P * n
 freq[freq < 1] = 0  # cut off
 
 # plot degree distribution
+fig, ax = plt.subplots()
+
 plt.autoscale(enable=True, tight=True)
 plt.loglog(bins, hist, '.', label='synthetic')
 plt.loglog(k_values, freq, 'g', label='theoretical')
 plt.xlabel(r'Degree $k$')
 plt.ylabel('Frequency')
+
+ax.legend(loc=1, numpoints=2)
 
 plt.savefig('degr-dist-pa.eps', format='eps')
 
@@ -50,12 +54,16 @@ P_discr = P_discr / P_discr[0]
 
 # plot cumulative degree distribution
 plt.clf()
+fig, ax = plt.subplots()
+
 plt.autoscale(enable=True, tight=True)
 plt.loglog(bins, hist, label='synthetic')
 plt.loglog(k_values, P_cum, 'g', label='theoretical')
 #plt.loglog(k_values, P, 'g', drawstyle='steps-post', label='theo. discr.')
 plt.xlabel(r'Degree $k$')
 plt.ylabel(r'$P(K \geq k)$')
+
+ax.legend(loc=1, numpoints=2)
 
 plt.savefig('cum-degr-dist-pa.eps', format='eps')
 
