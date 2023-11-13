@@ -10,7 +10,7 @@ t_step = 0.01   # only for decay function
 
 # eta distribution
 eta_step = 0.005
-lambd = 2
+lambd = 2.5
 
 gamma = 1
 

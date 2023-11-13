@@ -6,13 +6,14 @@ import matplotlib.pyplot as plt
 # params
 n_max = 1000000 # rough number of nodes
 t_max = 200
-t_step = 0.01   # only for decay function
 
 # eta distribution
 eta_step = 0.005
-lambd = 1
+lambd = 2.5
 
+# decay function
 gamma = 1
+t_step = 0.005   # only for decay function
 
 # number of initial nodes
 N_0 = 6
@@ -26,7 +27,8 @@ rho = rho / np.sum(rho)
 t = np.arange(1, t_max)
 
 # an exponential function
-n = np.exp(0.08 * t)
+n = np.exp(0.05 * t)
+n = n / n[-1] * n_max
 
 n = np.round(n).astype(int)
 
@@ -42,7 +44,7 @@ def f_decay(tau, gamma):
 fig, ax = plt.subplots()
 
 plt.autoscale(enable=True, tight=True)
-plt.plot(t, n, 'b')
+plt.semilogy(t, n, 'b')
 plt.xlabel('Time $t$')
 plt.ylabel('Network size $n$')
 
@@ -56,7 +58,7 @@ plt.clf()
 fig, ax = plt.subplots()
 
 plt.autoscale(enable=True, tight=True)
-plt.plot(t[1:], dn, 'b')
+plt.semilogy(t[1:], dn, 'b')
 plt.xlabel('Time $t$')
 plt.ylabel(r'$\Delta n$')
 
